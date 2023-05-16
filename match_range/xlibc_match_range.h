@@ -1,18 +1,11 @@
 #ifndef __XLIBC_MATCH_RANGE__
 #define __XLIBC_MATCH_RANGE__
 
-#include "common.h"
+#include "xlibc_common.h"
 #include <stdint.h>
 #include <string.h>
-#include "tree.h"
 
-typedef struct range_table_s {
-    size_t _key_size;
-    uint8_t _part_num;
-    uint32_t _range_num;
-    range_node_t *_tree;
-    uint32_t version;
-} range_tab_t;
+typedef struct range_table_s range_tab_t;
 
 XLIBC_STATE create_range_table(range_tab_t** tab, size_t key_size, uint8_t part_num);
 

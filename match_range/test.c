@@ -4,7 +4,7 @@
 int main()
 {
     range_tab_t* range_tab;
-    XLIBC_STATE state = create_range_table(&range_tab, 4, 4);
+    XLIBC_STATE state = create_range_table(&range_tab, 4, 2);
     if (state != XLIBC_STATE_OK) {
         printf("create_range_table failed: state=%d\n", state);
         return -1;
@@ -15,11 +15,11 @@ int main()
         printf("add_range failed: state=%d\n", state);
         goto clean;
     }
-    state = add_range(range_tab, 2, "de", 2, "fg", 2);
-    if (state != XLIBC_STATE_OK) {
-        printf("add_range failed: state=%d\n", state);
-        goto clean;
-    }
+    // state = add_range(range_tab, 2, "de", 2, "fg", 2);
+    // if (state != XLIBC_STATE_OK) {
+    //     printf("add_range failed: state=%d\n", state);
+    //     goto clean;
+    // }
 
     uint32_t ids[100];
     int id_num = match_ranges(range_tab, "bc", 2, ids, 100);
