@@ -10,11 +10,10 @@
 typedef struct xlibc_list_node_s {
     struct xlibc_list_node_s* pre;
     struct xlibc_list_node_s* next;
-    uint8_t val[0];
+    void* val;
 } xlibc_list_node_t;
 
-/** Doubly linked list */
-typedef struct {
+typedef struct xlibc_list_s {
     // structure:
     // head      tail end
     // │           │  │
