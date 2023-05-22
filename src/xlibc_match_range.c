@@ -25,7 +25,7 @@ typedef struct range_table_s {
 XLIBC_STATE create_range_table(range_tab_t** tab, size_t key_size, uint8_t step_len)
 {
     if (step_len != 1 && step_len != 2 && step_len != 4) {
-        return XLIBC_STATE_UNKNOW_ERROR;
+        return XLIBC_STATE_UNKNOW_ERR;
     }
     *tab = malloc(sizeof(range_tab_t));
     memset(*tab, 0, sizeof(range_tab_t));
@@ -48,7 +48,7 @@ XLIBC_STATE add_range(
     const uint8_t* to, size_t to_size)
 {
     if (from_size > tab->_key_size || to_size > tab->_key_size) {
-        return XLIBC_STATE_UNKNOW_ERROR;
+        return XLIBC_STATE_UNKNOW_ERR;
     }
 
     match_node_t* cursur = tab->_match_tree;
