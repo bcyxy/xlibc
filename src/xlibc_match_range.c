@@ -41,6 +41,7 @@ XLIBC_STATE destroy_range_table(range_tab_t* tab)
     return XLIBC_STATE_OK;
 }
 
+
 XLIBC_STATE add_range(
     range_tab_t* tab,
     uint32_t id,
@@ -94,19 +95,19 @@ XLIBC_STATE add_range(
         }
     }
 
-    // ==== 填充不同key
-    if (from_v != to_v) {
-        int is_r_full = fill_right(tab, cursur, from_full, i, j);
-        int is_l_full = fill_left(tab, cursur, to, i, j);
-        if (is_r_full && is_l_full) {
-            cursur->inner_range_num--;
-            // TODO cursur->ids[i] = id;
-        }
-        // fill_left();
-        //  from 右填充
-        //  to 左填充
-        //  如果from和to都满，上层做标记
-    }
+    // // ==== 填充不同key
+    // if (from_v != to_v) {
+    //     int is_r_full = fill_right(tab, cursur, from_full, i, j);
+    //     int is_l_full = fill_left(tab, cursur, to, i, j);
+    //     if (is_r_full && is_l_full) {
+    //         cursur->inner_range_num--;
+    //         // TODO cursur->ids[i] = id;
+    //     }
+    //     // fill_left();
+    //     //  from 右填充
+    //     //  to 左填充
+    //     //  如果from和to都满，上层做标记
+    // }
 
     return XLIBC_STATE_OK;
 }

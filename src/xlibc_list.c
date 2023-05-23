@@ -1,14 +1,16 @@
 #include "xlibc_list.h"
 #include <string.h>
 
-xlibc_list_t* xlibc_list_create(size_t val_size, xlibc_alloc_func_t alloc_func)
+int8_t xlibc_list_create(xlibc_list_t** pp_list, size_t val_size, xlibc_alloc_func_t alloc_func)
 {
     xlibc_list_t* list = malloc(sizeof(xlibc_list_t));
     if (list == NULL) {
-        return NULL;
+        return -1;
     }
     memset(list, 0, sizeof(xlibc_list_t));
     list->val_size = val_size;
+    *pp_list = list;
+    return 0;
 }
 
 int8_t xlibc_list_destroy(xlibc_list_t* list)
@@ -16,6 +18,7 @@ int8_t xlibc_list_destroy(xlibc_list_t* list)
     // 释放所有节点
     // 释放list
     free(list);
+    return 0;
 }
 
 int8_t xlibc_list_push_head(xlibc_list_t* list, void* val)
@@ -31,6 +34,7 @@ int8_t xlibc_list_push_head(xlibc_list_t* list, void* val)
     }
     xlibc_list_insert_after(list, list->head->pre, val);
     list->head = list->head->pre;
+    return 0;
 }
 
 int8_t xlibc_list_push_tail(xlibc_list_t* list, void* val)
@@ -45,6 +49,7 @@ int8_t xlibc_list_push_tail(xlibc_list_t* list, void* val)
         return 0;
     }
     xlibc_list_insert_after(list, list->head->pre, val);
+    return 0;
 }
 
 int8_t xlibc_list_insert_after(xlibc_list_t* list, xlibc_list_node_t* node, void* val)
@@ -71,7 +76,7 @@ int8_t xlibc_list_del(xlibc_list_t* list, xlibc_list_node_t* node)
         return -1;
     }
 
-    if (list->head->next = list->head) { // 只有一个节点
+    if (list->head->next == list->head) { // 只有一个节点
         list->head = NULL;
         list->list_len = 0;
         free(node);
@@ -86,4 +91,5 @@ int8_t xlibc_list_del(xlibc_list_t* list, xlibc_list_node_t* node)
     node->next->pre = node->pre;
     free(node);
     list->list_len--;
+    return 0;
 }
