@@ -8,7 +8,7 @@ TEST_OBJ = $(patsubst %.c, %.o, $(TEST_SRC))
 all: $(BUILD_DIR)/libxlibc.a $(BUILD_DIR)/test
 
 $(BUILD_DIR)/test: $(BUILD_DIR)/libxlibc.a $(TEST_OBJ)
-	$(GCC) -o $@ $(TEST_OBJ)
+	$(GCC) -o $@ $(TEST_OBJ) -L$(BUILD_DIR) -lxlibc
 
 $(TEST_SRC_DIR)/%.o: $(TEST_SRC_DIR)/%.c
 	$(GCC) $(CFLAGS) -c $< -o $@
@@ -21,8 +21,7 @@ $(BUILD_DIR)/libxlibc.a: $(OBJ)
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(GCC) $(CFLAGS) -c $< -o $@
 
-
-
 clean:
 	rm -rf $(BUILD_DIR)
 	rm -f $(SRC_DIR)/*.o
+	rm -f $(TEST_SRC_DIR)/*.o

@@ -1,7 +1,7 @@
 #include "xlibc_list.h"
 #include <string.h>
 
-int8_t xlibc_list_create(xlibc_list_t** pp_list, size_t val_size, xlibc_alloc_func_t alloc_func)
+XLIBC_STATE xlibc_list_create(xlibc_list_t** pp_list, size_t val_size, xlibc_alloc_func_t alloc_func)
 {
     xlibc_list_t* list = malloc(sizeof(xlibc_list_t));
     if (list == NULL) {
@@ -13,7 +13,7 @@ int8_t xlibc_list_create(xlibc_list_t** pp_list, size_t val_size, xlibc_alloc_fu
     return 0;
 }
 
-int8_t xlibc_list_destroy(xlibc_list_t* list)
+XLIBC_STATE xlibc_list_destroy(xlibc_list_t* list)
 {
     // 释放所有节点
     // 释放list
@@ -21,7 +21,7 @@ int8_t xlibc_list_destroy(xlibc_list_t* list)
     return 0;
 }
 
-int8_t xlibc_list_push_head(xlibc_list_t* list, void* val)
+XLIBC_STATE xlibc_list_push_head(xlibc_list_t* list, void* val)
 {
     if (list->head == NULL) {
         xlibc_list_node_t* new_node = malloc(list->val_size);
@@ -30,14 +30,14 @@ int8_t xlibc_list_push_head(xlibc_list_t* list, void* val)
         list->head->next = list->head;
         list->head->pre = list->head;
         list->list_len = 1;
-        return 0;
+        return XLIBC_STATE_OK;
     }
     xlibc_list_insert_after(list, list->head->pre, val);
     list->head = list->head->pre;
-    return 0;
+    return XLIBC_STATE_OK;
 }
 
-int8_t xlibc_list_push_tail(xlibc_list_t* list, void* val)
+XLIBC_STATE xlibc_list_push_tail(xlibc_list_t* list, void* val)
 {
     if (list->head == NULL) {
         xlibc_list_node_t* new_node = malloc(list->val_size);
@@ -52,7 +52,7 @@ int8_t xlibc_list_push_tail(xlibc_list_t* list, void* val)
     return 0;
 }
 
-int8_t xlibc_list_insert_after(xlibc_list_t* list, xlibc_list_node_t* node, void* val)
+XLIBC_STATE xlibc_list_insert_after(xlibc_list_t* list, xlibc_list_node_t* node, void* val)
 {
     if (node == NULL) {
         return -1;
@@ -70,7 +70,7 @@ int8_t xlibc_list_insert_after(xlibc_list_t* list, xlibc_list_node_t* node, void
     return 0;
 }
 
-int8_t xlibc_list_del(xlibc_list_t* list, xlibc_list_node_t* node)
+XLIBC_STATE xlibc_list_del(xlibc_list_t* list, xlibc_list_node_t* node)
 {
     if (node == NULL) {
         return -1;
